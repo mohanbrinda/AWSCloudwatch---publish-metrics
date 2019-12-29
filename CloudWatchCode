@@ -1,0 +1,34 @@
+#AWS CLOUDWATCH SERVICE IS USED TO MONITOR RESOURCES
+#Cloudwatch stores data about a metric as a series of data points and 
+##each data point can be published as an aggregated set called statistic set.
+#Cloudwatch stores metrics either as standard or hgh resolution metric and 
+#one canread and retrieve with a period of 1,5,10 seconds
+
+#create an instance and role to give write access to the instance
+#ssh to the instance and start pushing some data in order to graph
+
+ssh -i key.pem ubuntu@xxxxxxxx.xxx.compute.amazonaws.compute
+
+#update and install awscli
+
+sudo -i
+apt-get update
+apt-get install awscli
+
+#generate some random numbers between 1 and 1000 using shuff command and puh it o cloudwatch
+#A graph will be presented with given data points
+
+shuf -i 1-1000 -n 1
+
+#Put the datapoints into cloudwatch using the following command the backtix symbol in the command
+#will be replaced with the results in the command
+
+aws cloudwatch put-metric-data --metric-name rnumber --namespace Rnumber --value `shuf -i 1-1000 -n 1 ` --region=us-east-2
+
+#Setup a cron job to push random number every monute to graph
+
+crontab -e
+
+#edit the file for adding 5 (min, hour, day etc.)nd paste the command for generating random numbers
+aws cloudwatch put-metric-data --metric-name rnumber --namespace Rnumber --value `shuf -i 1-1000 -n 1 ` --region=us-east-2
+
